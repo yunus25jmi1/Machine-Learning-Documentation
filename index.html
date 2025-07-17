@@ -1,40 +1,80 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ECL-327: Machine Learning Documentation - Learn about ML algorithms, models, and applications.">
+    <meta name="keywords" content="machine learning, ML, documentation, algorithms, neural networks, reinforcement learning">
+    <meta name="author" content="ECL-327 Course Team">
     <title>ECL-327: Machine Learning Documentation</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+          xintegrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" 
+          crossorigin="anonymous">
+    
+    <!-- KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+            xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" 
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+            xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" 
+            crossorigin="anonymous"></script>
+    
+    <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Consolas', 'Courier New', monospace;
-            background-color: #111827; /* Dark background */
-            color: #d1d5db; /* Light text */
+            background-color: #f8fafc; /* Light mode background */
+            color: #1e293b; /* Light mode text */
+        }
+        .dark body {
+            background-color: #111827;
+            color: #d1d5db;
         }
         h1, h2, h3, h4, h5, h6 {
             font-weight: 700;
-            color: #f9fafb; /* Brighter text for headings */
+            color: #1e293b;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+            color: #f9fafb;
         }
         .sidebar {
             transition: transform 0.3s ease-in-out;
-            background-color: #1f2937; /* Darker sidebar */
+            background-color: #ffffff;
+            border-right: 1px solid #e5e7eb;
+        }
+        .dark .sidebar {
+            background-color: #1f2937;
             border-right-color: #374151;
         }
         .sidebar-link {
             transition: all 0.2s ease-in-out;
             border-left: 3px solid transparent;
+            color: #4b5563;
+        }
+        .dark .sidebar-link {
             color: #9ca3af;
         }
         .sidebar-link.active {
-            color: #60a5fa; /* Lighter blue for active link */
+            color: #2563eb;
             font-weight: 600;
+            border-left-color: #2563eb;
+            background-color: #eff6ff;
+        }
+        .dark .sidebar-link.active {
+            color: #60a5fa;
             border-left-color: #60a5fa;
             background-color: #374151;
         }
         .sidebar-link:hover {
+            color: #2563eb;
+            background-color: #f9fafb;
+        }
+        .dark .sidebar-link:hover {
             color: #93c5fd;
             background-color: #374151;
         }
@@ -43,8 +83,8 @@
             margin-top: -6rem;
         }
         .pseudo-code {
-            background-color: #0f172a; /* Even darker for code blocks */
-            color: #e5e7eb;
+            background-color: #f3f4f6;
+            color: #111827;
             padding: 1.5rem;
             border-radius: 0.5rem;
             font-family: 'Consolas', 'Courier New', monospace;
@@ -52,15 +92,24 @@
             line-height: 1.6;
             white-space: pre-wrap;
             word-wrap: break-word;
+            border: 1px solid #e5e7eb;
+        }
+        .dark .pseudo-code {
+            background-color: #0f172a;
+            color: #e5e7eb;
             border: 1px solid #4b5563;
         }
         .diagram-box {
-            background-color: #1f2937;
-            border: 1px solid #374151;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
             border-radius: 0.75rem;
             padding: 2rem;
             margin-top: 1.5rem;
             margin-bottom: 1.5rem;
+        }
+        .dark .diagram-box {
+            background-color: #1f2937;
+            border: 1px solid #374151;
         }
         .katex-display {
             overflow-x: auto;
@@ -68,91 +117,56 @@
             padding: 0.5rem 0;
             scrollbar-width: thin;
         }
-        .prose {
-            max-width: none;
-        }
-        .prose h2 {
-            font-size: 2.25rem;
-            line-height: 2.5rem;
-            margin-bottom: 2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #374151;
-        }
-        .prose h3 {
-            font-size: 1.875rem;
-            line-height: 2.25rem;
-            margin-top: 3rem;
-            margin-bottom: 1.5rem;
-        }
-        .prose h4 {
-            font-size: 1.5rem;
-            line-height: 2rem;
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-        }
-         .prose h5 {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
-        }
-        .prose p, .prose li {
-            font-size: 1rem;
-            line-height: 1.75;
-            color: #d1d5db;
-        }
-        .prose a {
-            color: #93c5fd;
-            text-decoration: none;
-        }
-        .prose a:hover {
-            text-decoration: underline;
-        }
-        .prose strong {
-            color: #f9fafb;
-        }
-        .prose blockquote {
-            border-left-color: #60a5fa;
-            background-color: #1f2937;
-            padding: 1rem;
-            color: #d1d5db;
-        }
-        /* Mobile header dark mode */
-        header {
-            background-color: rgba(31, 41, 55, 0.8); /* bg-gray-800 with opacity */
-            border-bottom: 1px solid #374151;
-        }
-        header h1, header button {
-            color: #f9fafb;
-        }
+        .prose { max-width: none; }
+        .prose h2 { border-bottom: 1px solid #e5e7eb; }
+        .dark .prose h2 { border-bottom-color: #374151; }
+        .prose p, .prose li { color: #374151; }
+        .dark .prose p, .dark .prose li { color: #d1d5db; }
+        .prose a { color: #2563eb; }
+        .dark .prose a { color: #93c5fd; }
+        .prose strong { color: #111827; }
+        .dark .prose strong { color: #f9fafb; }
+        .prose blockquote { border-left-color: #2563eb; background-color: #eff6ff; }
+        .dark .prose blockquote { border-left-color: #60a5fa; background-color: #1f2937; color: #d1d5db; }
+        header { background-color: rgba(255, 255, 255, 0.8); border-bottom: 1px solid #e5e7eb; }
+        .dark header { background-color: rgba(31, 41, 55, 0.8); border-bottom: 1px solid #374151; }
+        header h1 { color: #111827; }
+        .dark header h1 { color: #f9fafb; }
+        header button { color: #374151; }
+        .dark header button { color: #d1d5db; }
+        #theme-toggle { background-color: #f3f4f6; color: #4b5563; }
+        #theme-toggle:hover { background-color: #e5e7eb; }
+        .dark #theme-toggle { background-color: #374151; color: #d1d5db; }
+        .dark #theme-toggle:hover { background-color: #4b5563; }
     </style>
 </head>
-<body class="bg-gray-900">
-
+<body>
     <div class="flex">
         <!-- Mobile Header -->
         <header class="md:hidden fixed top-0 left-0 right-0 backdrop-blur-sm z-40">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <h1 class="text-lg font-bold">ECL-327: ML Docs</h1>
-                <button id="menu-toggle" class="p-2 rounded-md hover:bg-gray-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <button id="menu-toggle" class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700" aria-label="Toggle Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
                 </button>
             </div>
         </header>
-
+        
         <!-- Sidebar -->
         <aside id="sidebar" class="fixed top-0 left-0 w-72 h-full z-50 transform -translate-x-full md:translate-x-0">
             <div class="px-6 py-4">
                 <h1 class="text-xl font-bold">ECL-327: Machine Learning</h1>
-                <p class="text-sm text-gray-400">Course Documentation</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Course Documentation</p>
             </div>
             <nav id="sidebar-nav" class="h-[calc(100vh-80px)] overflow-y-auto pb-10">
-                <ul class="text-gray-400">
+                <ul class="text-gray-600 dark:text-gray-400">
                     <!-- Links will be injected here by JS -->
                 </ul>
             </nav>
         </aside>
-
+        
         <!-- Main Content -->
         <main class="md:ml-72 w-full min-h-screen p-4 md:p-12 prose">
             <div id="content-container">
@@ -161,8 +175,27 @@
         </main>
     </div>
 
+    <!-- Dark Mode Toggle Button -->
+    <button id="theme-toggle" class="fixed bottom-4 right-4 p-3 rounded-full shadow-lg" aria-label="Toggle Dark Mode">
+        <svg id="theme-icon-sun" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg id="theme-icon-moon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        const contentContainer = document.getElementById('content-container');
+        const sidebarNav = document.getElementById('sidebar-nav')?.querySelector('ul');
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+
+        if (!contentContainer || !sidebarNav) {
+            console.error("Required DOM elements are missing.");
+            return;
+        }
+        
         const fullContent = `
             <div id="section-a" class="content-section">
                 <h2>SECTION - A</h2>
@@ -181,7 +214,7 @@
                             <li><strong>Hyperparameter Tuning:</strong> Based on the evaluation, the model's hyperparameters (configuration settings that are not learned from the data) may be adjusted to improve performance.</li>
                             <li><strong>Deployment:</strong> Once the model performs satisfactorily, it is deployed into a production environment to make predictions on real-world data.</li>
                         </ol>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="types-of-ml" class="content-section">
                         <h4>1.2. Types of Machine Learning</h4>
                         <p>Machine learning systems are broadly categorized into three main types based on the nature of the learning signal or feedback available to the system.</p>
@@ -199,7 +232,7 @@
                         </ul>
                         <h5 class="font-semibold">Reinforcement Learning (RL)</h5>
                         <p>Reinforcement learning is a learning paradigm where an "agent" learns to behave in an "environment" by performing "actions" and observing the results or "rewards". The agent is not told which actions to take but instead must discover which actions yield the most reward by trying them. This is a trial-and-error process aimed at maximizing a cumulative reward signal over time. RL is widely used to train models for tasks that involve a sequence of decisions, such as playing games (e.g., Go, chess), robotics, and autonomous navigation.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="applications-of-ml" class="content-section">
                         <h4>1.3. Applications of Machine Learning</h4>
                         <p>Machine learning has become integral to modern technology, powering a vast array of applications across numerous industries.</p>
@@ -211,7 +244,7 @@
                             <li><strong>Natural Language Processing (NLP):</strong> Virtual assistants like Siri and Alexa use ML for speech recognition to understand and respond to voice commands. Other NLP applications include machine translation, sentiment analysis, and automated customer service via chatbots.</li>
                             <li><strong>Computer Vision:</strong> Beyond autonomous vehicles, computer vision powered by ML is used for facial recognition in security systems, object detection in images, and content filtering on social media platforms.</li>
                         </ul>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="model-representation" class="content-section">
                         <h4>1.4. Model Representation</h4>
                         <p>At its core, a machine learning model is a mathematical construct that represents the learned relationship between input data and output predictions. It can be thought of as a hypothesis function, often denoted as $h$, that maps an input space $X$ to an output space $Y$, formally written as $h: X \\rightarrow Y$. The primary goal of the training process is to find the optimal parameters for this function $h$ such that it can accurately predict the output $Y$ for a given input $X$, even for data it has never encountered before.</p>
@@ -222,7 +255,7 @@
                             <li><strong>Neural Networks:</strong> In a neural network, the function $h$ is a complex composition of many nested, non-linear functions (activation functions). The parameters are the vast number of weights and biases associated with the connections between neurons.</li>
                         </ul>
                         <p>This concept of a model as a parameterized function is a unifying thread that connects the diverse set of algorithms in machine learning. The difference between them lies in the complexity and form of the function they use and the specific optimization technique employed to learn the best parameters from the training data.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                 </div>
                 <div id="supervised-learning-algos" class="content-section">
                     <h3>2. Supervised Learning Algorithms</h3>
@@ -281,7 +314,7 @@
                             <li><strong>Weight Update:</strong> The calculated gradients are used by an optimization algorithm (e.g., Gradient Descent) to update the weights and biases. The update rule is: $$w_{\\text{new}} = w_{\\text{old}} - \\eta \\frac{\\partial L}{\\partial w_{\\text{old}}}$$ where $\\eta$ is the learning rate, a hyperparameter that controls the step size of the update.</li>
                         </ol>
                         <p>This process—forward pass, loss calculation, backward pass, and weight update—is repeated for many epochs (passes through the entire training dataset) until the model's performance converges. Backpropagation provides the "what" (the gradient, or the direction and magnitude of error contribution), while Gradient Descent provides the "how" (the update rule to adjust parameters and learn).</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                 </div>
             </div>
             <div id="section-b" class="content-section">
@@ -324,7 +357,7 @@ Output:
 11.    c_j = (1 / |C_j|) * sum(x_i for all x_i in C_j)
 12. until the centroids c_j do not change.
                         </div>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="hierarchical-clustering" class="content-section">
                         <h4>1.2. Hierarchical Clustering</h4>
                         <p>Hierarchical clustering is an alternative clustering method that builds a hierarchy of clusters, which can be visualized as a tree-like structure called a <strong>dendrogram</strong>. Unlike K-Means, it does not require the number of clusters to be specified in advance.</p>
@@ -334,7 +367,7 @@ Output:
                           <li><strong>Agglomerative (Bottom-Up):</strong> This is the more common approach. It starts by treating each data point as a single cluster. Then, at each step, it iteratively merges the two closest clusters into a single larger cluster. This process continues until all data points are contained within a single, all-encompassing cluster.</li>
                           <li><strong>Divisive (Top-Down):</strong> This approach works in the opposite direction. It starts with all data points in one large cluster. At each step, it splits the most heterogeneous cluster into two. This process is repeated until each data point is in its own cluster, or a stopping criterion is met.</li>
                         </ol>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                 </div>
                 <div id="svm-ensemble" class="content-section">
                     <h3>2. SVM & Ensemble Machine Learning models</h3>
@@ -349,7 +382,7 @@ Output:
                             <li><strong>Margin:</strong> The margin is the distance between the hyperplane and the nearest data points from either class. SVM's primary objective is to find the hyperplane that <strong>maximizes</strong> this margin. A larger margin implies a more confident and robust decision boundary.</li>
                             <li><strong>Support Vectors:</strong> These are the data points that lie closest to the hyperplane—the points that are on the edge of the margin. They are the most critical data points in the training set because they are the ones that define the position and orientation of the optimal hyperplane. If these points were moved, the hyperplane would also move. All other points are irrelevant to defining the boundary.</li>
                         </ul>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="ensemble-learning" class="content-section">
                         <h4>2.2. Ensemble Machine Learning techniques</h4>
                         <p>Ensemble learning is a meta-approach to machine learning that seeks better predictive performance by combining the predictions from multiple models, or "learners". The resulting ensemble model is often more accurate, stable, and robust than any of its individual constituent models. The two most fundamental ensemble techniques are Bagging and Boosting.</p>
@@ -357,7 +390,7 @@ Output:
                         <p>Bagging is an ensemble technique designed primarily to <strong>reduce the variance</strong> of a machine learning model, which in turn helps to prevent overfitting. It is particularly effective with models that have high variance and low bias, such as fully grown decision trees.</p>
                         <h5>Boosting</h5>
                         <p>Boosting is an ensemble technique that works by building models <strong>sequentially</strong>, where each new model is trained to correct the errors made by its predecessors. The primary goal of boosting is to <strong>reduce the bias</strong> of the model, combining many "weak learners" (models that are only slightly better than random guessing) into a single "strong learner".</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                 </div>
             </div>
             <div id="section-c" class="content-section">
@@ -368,19 +401,19 @@ Output:
                     <div id="deep-learning-basics" class="content-section">
                         <h4>1.1. Basics of Deep learning</h4>
                         <p>The core distinction between traditional machine learning and deep learning lies in the process of <strong>feature engineering</strong>. In traditional ML, domain experts often need to manually extract relevant features from the raw data to feed into the learning algorithm. Deep learning automates this process. The hierarchical structure of a deep neural network allows it to learn a hierarchy of features directly from the data. Initial layers might learn to detect simple patterns like edges and colors, subsequent layers might combine these to recognize more complex textures and shapes, and the final layers can identify entire objects.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="autoencoders" class="content-section">
                         <h4>1.2. Auto-encoders</h4>
                         <p>An autoencoder is a type of unsupervised neural network designed for the primary purpose of learning efficient data codings or representations. Its architecture is characteristically symmetrical and consists of an encoder, a bottleneck (latent space), and a decoder. By learning to reconstruct the data perfectly through a compressed bottleneck, the network is forced to learn a meaningful and compact representation of the data in its latent space. This makes autoencoders highly useful for tasks like dimensionality reduction, feature learning, and anomaly detection.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="cnn" class="content-section">
                         <h4>1.3. Convolutional Neural Network</h4>
                         <p>Convolutional Neural Networks (CNNs or ConvNets) are a class of deep neural networks specifically designed for processing data with a grid-like topology, such as an image. They are the backbone of most modern computer vision systems. A typical CNN architecture consists of a stack of convolutional layers, pooling layers, and fully connected layers.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="rnn" class="content-section">
                         <h4>1.4. Recurrent Neural Network: LSTM</h4>
                         <p>Recurrent Neural Networks (RNNs) are a class of neural networks designed to work with <strong>sequential data</strong>, where the order of elements is crucial. Unlike feedforward networks, RNNs have loops, allowing information to persist. Long Short-Term Memory (LSTM) networks are a special kind of RNN architecture explicitly designed to avoid the long-term dependency problem (vanishing/exploding gradients) by using a gating mechanism (forget, input, and output gates) to regulate the flow of information.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                 </div>
                 <div id="learning-fundamentals" class="content-section">
                     <h3>2. Learning Fundamentals</h3>
@@ -388,27 +421,27 @@ Output:
                     <div id="gradient-descent" class="content-section">
                         <h4>2.1. Gradient descent learning technique</h4>
                         <p>Gradient Descent is the workhorse optimization algorithm for most modern machine learning models. It is an iterative method used to find the values of a model's parameters that minimize a cost function by repeatedly taking steps in the direction of the negative gradient. Variants include Batch, Stochastic (SGD), and Mini-Batch Gradient Descent.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="overfitting-regularization" class="content-section">
                         <h4>2.2. Overfitting, regularization</h4>
                         <p>Overfitting occurs when a model learns the training data too well, capturing noise instead of the underlying pattern, which leads to poor performance on new data. Regularization is a set of techniques used to prevent overfitting by adding a penalty for model complexity to the cost function. Common methods include L1 (Lasso) and L2 (Ridge) regularization.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="pca" class="content-section">
                         <h4>2.3. Dimensionality reduction using Principle component analysis</h4>
                         <p>Dimensionality reduction techniques aim to reduce the number of features while retaining as much of the original information as possible. Principal Component Analysis (PCA) is the most common technique for linear dimensionality reduction. It transforms the data into a new coordinate system of orthogonal principal components that capture the maximum variance in the data.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="feature-eng" class="content-section">
                         <h4>2.4. A general view of feature extraction, feature ranking</h4>
                         <p><strong>Feature Extraction</strong> is the process of creating new features from existing raw data. <strong>Feature Selection (or Ranking)</strong> is the process of selecting a subset of the original features. Methods are categorized as Filter (statistical properties), Wrapper (model-based evaluation), and Embedded (selection as part of training).</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="validation" class="content-section">
                         <h4>2.5. Validation techniques</h4>
                         <p>Validation techniques provide a robust estimate of a model's performance on unseen data. Common methods include the simple Holdout split, the more robust K-Fold Cross-Validation, and Stratified K-Fold for imbalanced datasets.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="confusion-matrix" class="content-section">
                         <h4>2.6. Confusion matrix and its related performance parameters</h4>
                         <p>A confusion matrix provides a detailed picture of a classification model's performance by comparing actual vs. predicted labels. It contains counts for True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN). From this, key metrics like Accuracy, Precision, Recall, and F1-Score are derived to give a more nuanced evaluation than accuracy alone.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                 </div>
             </div>
             <div id="section-d" class="content-section">
@@ -419,100 +452,146 @@ Output:
                     <div id="mdp" class="content-section">
                         <h4>1.1. Introduction, Markov decision process (MDP)</h4>
                         <p>The Markov Decision Process (MDP) is the mathematical framework for RL problems, defined by a tuple $(S, A, P, R, \\gamma)$ representing States, Actions, Transition Probabilities, Rewards, and a Discount Factor. It relies on the Markov Property, which states that the future is independent of the past given the present state.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="bellman" class="content-section">
                         <h4>1.2. Bellman equations</h4>
                         <p>The Bellman equations are the cornerstone of most RL algorithms, providing a recursive definition for the value of a state or a state-action pair. The Bellman Expectation Equation defines the value for a given policy, while the Bellman Optimality Equation defines the value for the optimal policy, which is the key to solving RL problems.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="value-policy-iteration" class="content-section">
                         <h4>1.3. Value iteration and policy iteration</h4>
                         <p>Value Iteration and Policy Iteration are two classic dynamic programming algorithms used to solve MDPs when a perfect model of the environment is known. Value Iteration iteratively computes the optimal state-value function, while Policy Iteration alternates between evaluating a policy and improving it greedily.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="q-learning" class="content-section">
                         <h4>1.4. Q-learning</h4>
                         <p>Q-learning is a cornerstone of modern RL. It is a model-free, off-policy, temporal difference (TD) control algorithm that learns the optimal action-value function, $Q^*(s, a)$, directly from experience. It uses a Q-table to store values and updates them based on the TD error, balancing exploration and exploitation using strategies like $\\epsilon$-greedy.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="value-approx" class="content-section">
                         <h4>1.5. Value function approximation</h4>
                         <p>For problems with enormous or continuous state spaces, representing the Q-function as a table is impossible. Value function approximation solves this by using a parameterized function, such as a deep neural network (creating a Deep Q-Network or DQN), to estimate the value function, learning the function's parameters instead of individual state-action values.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="policy-search" class="content-section">
                         <h4>1.6. Policy search, Reinforce</h4>
                         <p>Policy gradient methods are an alternative to value-based methods that learn a parameterized policy directly. REINFORCE is a foundational policy gradient algorithm that updates policy parameters based on the complete return of an entire episode, increasing the probability of actions that led to high returns.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="pomdp" class="content-section">
                         <h4>1.7. POMDPs</h4>
                         <p>A Partially Observable Markov Decision Process (POMDP) is a generalization of an MDP for situations where the agent cannot observe the true state of the environment directly. The agent instead receives an observation and must maintain a belief state (a probability distribution over all possible states) to make decisions.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                     <div id="td-learning" class="content-section">
                         <h4>1.8. Temporal Difference Learning</h4>
                         <p>Temporal Difference (TD) learning is a central and unifying idea in reinforcement learning that combines Monte Carlo methods (learning from experience) and Dynamic Programming (bootstrapping). It updates value estimates based on other learned estimates without waiting for the final outcome of an episode. Q-learning and SARSA are prominent TD control algorithms.</p>
-                    </div><hr class="my-8 border-slate-700">
+                    </div><hr class="my-8 border-gray-200 dark:border-slate-700">
                 </div>
             </div>
         `;
 
-        const contentContainer = document.getElementById('content-container');
+        // Inject content
         contentContainer.innerHTML = fullContent;
 
-        // --- Sidebar and Navigation Logic ---
-        const sidebarNav = document.getElementById('sidebar-nav').querySelector('ul');
-        const headers = contentContainer.querySelectorAll('h2, h3, h4');
-        let navHtml = '';
+        // Initialize features
+        generateSidebarNav();
+        renderMath();
+        setupMobileMenu();
+        setupIntersectionObserver();
+        setupDarkMode();
 
-        headers.forEach(header => {
-            const level = parseInt(header.tagName.substring(1));
-            const id = header.parentElement.id;
-            const text = header.textContent;
-            let paddingClass = '';
-            if (level === 3) paddingClass = 'pl-8';
-            if (level === 4) paddingClass = 'pl-12';
+        // Generate sidebar navigation
+        function generateSidebarNav() {
+            const headers = contentContainer.querySelectorAll('h2, h3, h4');
+            let navHtml = '';
+            headers.forEach(header => {
+                const level = parseInt(header.tagName.substring(1));
+                const id = header.parentElement.id;
+                const text = header.textContent;
+                let paddingClass = '';
+                if (level === 3) paddingClass = 'pl-8';
+                if (level === 4) paddingClass = 'pl-12';
+                navHtml += `<li><a href="#${id}" class="sidebar-link block py-2 px-6 text-sm ${paddingClass}">${text}</a></li>`;
+            });
+            sidebarNav.innerHTML = navHtml;
+        }
 
-            navHtml += `<li><a href="#${id}" class="sidebar-link block py-2 px-6 text-sm ${paddingClass}">${text}</a></li>`;
-        });
-        sidebarNav.innerHTML = navHtml;
+        // Handle math rendering
+        function renderMath() {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
 
-        if (window.renderMathInElement) {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
-                ],
-                throwOnError: false
+        // Handle mobile menu toggle
+        function setupMobileMenu() {
+            if (!menuToggle || !sidebar) return;
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+
+            sidebarNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 768) {
+                        sidebar.classList.add('-translate-x-full');
+                    }
+                });
             });
         }
 
-        const links = sidebarNav.querySelectorAll('a');
-        const sections = document.querySelectorAll('.content-section');
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
+        // Highlight active navigation link
+        function setupIntersectionObserver() {
+            const sections = document.querySelectorAll('.content-section');
+            const links = sidebarNav.querySelectorAll('a');
 
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-        });
-        
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 768) {
-                     sidebar.classList.add('-translate-x-full');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.id;
+                    const link = sidebarNav.querySelector(`a[href="#${id}"]`);
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                        links.forEach(l => {
+                            l.classList.remove('active');
+                            l.removeAttribute('aria-current');
+                        });
+                        if (link) {
+                            link.classList.add('active');
+                            link.setAttribute('aria-current', 'page');
+                        }
+                    }
+                });
+            }, { threshold: 0.5, rootMargin: "-100px 0px -50% 0px" });
+
+            sections.forEach(section => observer.observe(section));
+        }
+
+        // Dark mode toggle
+        function setupDarkMode() {
+            if (!themeToggle || !sunIcon || !moonIcon) return;
+
+            function updateIcons(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    moonIcon.classList.add('hidden');
+                    sunIcon.classList.remove('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
                 }
-            });
-        });
+            }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const id = entry.target.getAttribute('id');
-                const link = sidebarNav.querySelector(`a[href="#${id}"]`);
-                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-                    links.forEach(l => l.classList.remove('active'));
-                    if(link) link.classList.add('active');
-                }
-            });
-        }, { threshold: 0.5, rootMargin: "-100px 0px -50% 0px" });
+            // Check for saved theme preference
+            const isDarkMode = localStorage.getItem('theme') === 'dark' || 
+                               (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            updateIcons(isDarkMode);
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateIcons(isDark);
+            });
+        }
     });
     </script>
 </body>
