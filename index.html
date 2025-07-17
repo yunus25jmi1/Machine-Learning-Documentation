@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECL-327: Machine Learning Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease-in-out;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-link.active {
+            color: #2563eb;
+            font-weight: 600;
+            border-left-color: #2563eb;
+            background-color: #eff6ff;
+        }
+        .sidebar-link:hover {
+            color: #2563eb;
+            background-color: #f8fafc;
+        }
+        .content-section {
+            padding-top: 6rem;
+            margin-top: -6rem;
+        }
+        .pseudo-code {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border: 1px solid #334155;
+        }
+        .diagram-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.5rem 0;
+            scrollbar-width: thin;
+        }
+        .prose {
+            max-width: none;
+        }
+        .prose h2 {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .prose h3 {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .prose h4 {
+            font-size: 1.5rem;
+            line-height: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+         .prose h5 {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose p, .prose li {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: #334155;
+        }
+        .prose a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .prose a:hover {
+            text-decoration: underline;
+        }
+        .prose strong {
+            color: #0f172a;
+        }
+        .prose blockquote {
+            border-left-color: #2563eb;
+            background-color: #eff6ff;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <div class="flex">
+        <!-- Mobile Header -->
+        <header class="md:hidden fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm shadow-md z-40">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <h1 class="text-lg font-bold text-slate-800">ECL-327: ML Docs</h1>
+                <button id="menu-toggle" class="p-2 rounded-md text-slate-600 hover:bg-slate-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed top-0 left-0 w-72 h-full bg-white border-r border-slate-200 z-50 transform -translate-x-full md:translate-x-0 md:block">
+            <div class="px-6 py-4">
+                <h1 class="text-xl font-bold text-slate-800">ECL-327: Machine Learning</h1>
+                <p class="text-sm text-slate-500">Course Documentation</p>
+            </div>
+            <nav id="sidebar-nav" class="h-[calc(100vh-80px)] overflow-y-auto pb-10">
+                <ul class="text-slate-600">
+                    <!-- Links will be injected here by JS -->
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="md:ml-72 w-full min-h-screen bg-slate-50 p-4 md:p-12 prose">
+            <div id="content-container">
+                <!-- Content will be injected here by JS -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fullContent = `
+            <div id="section-a" class="content-section">
+                <h2>SECTION - A</h2>
+                <div id="intro-ml" class="content-section">
+                    <h3>1. Introduction to Machine Learning</h3>
+                    <div id="what-is-ml" class="content-section">
+                        <h4>1.1. What is Machine Learning?</h4>
+                        <p>Machine learning (ML) is a subfield of artificial intelligence (AI) that focuses on the development of algorithms and statistical models that enable computer systems to perform tasks without being explicitly programmed. The core principle of machine learning is to allow machines to learn from data, identify patterns, and make decisions with minimal human intervention. This represents a fundamental paradigm shift from traditional programming. In a conventional approach, a programmer provides a computer with a set of explicit rules and input data, and the computer executes these rules to produce an output. In contrast, machine learning systems are trained by being given large amounts of data (inputs) and the corresponding correct outcomes (outputs). The system then "learns" the rules or mathematical relationships that connect the inputs to the outputs. These learned rules form a "model," which can then be used to make predictions on new, unseen data.</p>
+                        <p>The typical workflow of a machine learning project, often referred to as the machine learning pipeline, involves a sequence of structured steps:</p>
+                        <ol class="list-decimal list-inside space-y-2">
+                            <li><strong>Data Collection:</strong> The initial stage involves gathering raw data from various sources, such as databases, files, sensors, or web scraping. The quality and quantity of this data are paramount to the success of the model.</li>
+                            <li><strong>Data Pre-processing:</strong> This is a critical step that involves cleaning and preparing the data. Activities include handling missing values, removing duplicate entries, correcting errors, and transforming data into a suitable format for the chosen algorithm.</li>
+                            <li><strong>Model Selection:</strong> Based on the nature of the problem (e.g., prediction, classification, pattern discovery) and the characteristics of the data, an appropriate machine learning algorithm is selected.</li>
+                            <li><strong>Training:</strong> The selected model is trained on a portion of the dataset, known as the "training set." During this phase, the algorithm iteratively adjusts its internal parameters to minimize the difference between its predictions and the actual outcomes in the training data.</li>
+                            <li><strong>Evaluation:</strong> The trained model's performance is evaluated on a separate portion of the dataset, the "testing set," which it has not seen during training. This step assesses the model's ability to generalize to new data.</li>
+                            <li><strong>Hyperparameter Tuning:</strong> Based on the evaluation, the model's hyperparameters (configuration settings that are not learned from the data) may be adjusted to improve performance.</li>
+                            <li><strong>Deployment:</strong> Once the model performs satisfactorily, it is deployed into a production environment to make predictions on real-world data.</li>
+                        </ol>
+                    </div>
+                    <div id="types-of-ml" class="content-section">
+                        <h4>1.2. Types of Machine Learning</h4>
+                        <p>Machine learning systems are broadly categorized into three main types based on the nature of the learning signal or feedback available to the system.</p>
+                        <h5 class="font-semibold">Supervised Learning</h5>
+                        <p>In supervised learning, the algorithm learns from a dataset that is fully labeled, meaning each data point is tagged with the correct output or "ground truth". The model's objective is to learn a mapping function that can predict the output variable from the input variables. It is analogous to a student learning under the supervision of a teacher. Supervised learning problems can be further divided into two categories:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Classification:</strong> The goal is to predict a discrete, categorical label. The output variable is a category, such as "spam" or "not spam," "cat" or "dog," or "disease" or "no disease".</li>
+                            <li><strong>Regression:</strong> The goal is to predict a continuous, numerical value. The output variable is a real number, such as the price of a house, the temperature tomorrow, or a person's height.</li>
+                        </ul>
+                        <h5 class="font-semibold">Unsupervised Learning</h5>
+                        <p>In unsupervised learning, the algorithm is given a dataset without any explicit labels or correct outputs. The system's task is to explore the data and find some inherent structure or patterns within it on its own. This is like being given a box of mixed fruits and being asked to sort them into groups based on their characteristics (color, size, shape) without being told what the fruits are. Common unsupervised learning tasks include:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Clustering:</strong> The objective is to group similar data points together into clusters. For example, a company might use clustering to segment its customers into different groups based on their purchasing behavior.</li>
+                            <li><strong>Dimensionality Reduction:</strong> This involves reducing the number of random variables under consideration, either to simplify a dataset for easier analysis or to remove redundant features without losing significant information.</li>
+                        </ul>
+                        <h5 class="font-semibold">Reinforcement Learning (RL)</h5>
+                        <p>Reinforcement learning is a learning paradigm where an "agent" learns to behave in an "environment" by performing "actions" and observing the results or "rewards". The agent is not told which actions to take but instead must discover which actions yield the most reward by trying them. This is a trial-and-error process aimed at maximizing a cumulative reward signal over time. RL is widely used to train models for tasks that involve a sequence of decisions, such as playing games (e.g., Go, chess), robotics, and autonomous navigation.</p>
+                    </div>
+                    <div id="applications-of-ml" class="content-section">
+                        <h4>1.3. Applications of Machine Learning</h4>
+                        <p>Machine learning has become integral to modern technology, powering a vast array of applications across numerous industries.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Healthcare and Medical Diagnosis:</strong> ML algorithms analyze medical images (like X-rays and MRIs) to detect diseases such as cancer or pneumonia. They also perform predictive analytics by analyzing patient data to forecast disease risk or potential complications and accelerate the drug discovery process.</li>
+                            <li><strong>Finance and Banking:</strong> In the financial sector, ML is crucial for fraud detection, where models monitor transactions in real-time to flag suspicious activity. It is also used for algorithmic trading, analyzing market data to predict stock price movements, and for credit scoring to assess loan risk.</li>
+                            <li><strong>E-commerce and Recommendation Systems:</strong> Platforms like Amazon, Netflix, and Spotify use ML to power their recommendation engines. These systems analyze a user's past behavior, preferences, and interactions to suggest products, movies, or songs, thereby personalizing the user experience and increasing engagement.</li>
+                            <li><strong>Autonomous Systems and Automation:</strong> Self-driving cars rely heavily on ML, particularly computer vision, to interpret their surroundings—recognizing lanes, pedestrians, and obstacles—and make real-time driving decisions.</li>
+                            <li><strong>Natural Language Processing (NLP):</strong> Virtual assistants like Siri and Alexa use ML for speech recognition to understand and respond to voice commands. Other NLP applications include machine translation, sentiment analysis, and automated customer service via chatbots.</li>
+                            <li><strong>Computer Vision:</strong> Beyond autonomous vehicles, computer vision powered by ML is used for facial recognition in security systems, object detection in images, and content filtering on social media platforms.</li>
+                        </ul>
+                    </div>
+                    <div id="model-representation" class="content-section">
+                        <h4>1.4. Model Representation</h4>
+                        <p>At its core, a machine learning model is a mathematical construct that represents the learned relationship between input data and output predictions. It can be thought of as a hypothesis function, often denoted as $h$, that maps an input space $X$ to an output space $Y$, formally written as $h: X \\rightarrow Y$. The primary goal of the training process is to find the optimal parameters for this function $h$ such that it can accurately predict the output $Y$ for a given input $X$, even for data it has never encountered before.</p>
+                        <p>The form of this mathematical function varies significantly depending on the algorithm chosen, which reflects the underlying assumptions about the data and the problem.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Linear Regression:</strong> In the case of simple linear regression, the model is represented by the familiar equation of a straight line: $y = mx + c$ or, using more standard ML notation, $h_{\\theta}(x) = \\theta_0 + \\theta_1x$. Here, the input is $x$, the predicted output is $h_{\\theta}(x)$, and the parameters to be learned are the intercept $\\theta_0$ and the slope $\\theta_1$. The model assumes a linear relationship between the input and output.</li>
+                            <li><strong>Decision Trees:</strong> A decision tree represents the function $h$ as a hierarchical structure of if-then-else rules. The "parameters" are the chosen features at each node, the thresholds for splitting, and the final class labels at the leaf nodes.</li>
+                            <li><strong>Neural Networks:</strong> In a neural network, the function $h$ is a complex composition of many nested, non-linear functions (activation functions). The parameters are the vast number of weights and biases associated with the connections between neurons.</li>
+                        </ul>
+                        <p>This concept of a model as a parameterized function is a unifying thread that connects the diverse set of algorithms in machine learning. The difference between them lies in the complexity and form of the function they use and the specific optimization technique employed to learn the best parameters from the training data.</p>
+                    </div>
+                </div>
+                <div id="supervised-learning-algos" class="content-section">
+                    <h3>2. Supervised Learning Algorithms</h3>
+                    <p>Supervised learning algorithms constitute a major class of machine learning models. They are defined by their use of labeled datasets to train algorithms for classifying data or predicting outcomes accurately. As input data is fed into the model, it adjusts its parameters iteratively until the model has been fitted appropriately, which can be seen when its performance on the training data is satisfactory.</p>
+                    <div id="mlp" class="content-section">
+                        <h4>2.1. Multilayer Perceptron (MLP) or Backpropagation Neural Network</h4>
+                        <p>The Multilayer Perceptron (MLP) is a foundational class of feedforward artificial neural networks (ANN). It serves as a universal function approximator, capable of learning complex, non-linear relationships between inputs and outputs, making it suitable for both classification and regression tasks.</p>
+                        <h5>Architecture</h5>
+                        <p>An MLP consists of at least three layers of nodes, or neurons: an input layer, one or more hidden layers, and an output layer. Each neuron in one layer is fully connected to the neurons in the subsequent layer, meaning its output becomes an input for all neurons in the next layer.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Input Layer:</strong> This layer receives the initial raw data. The number of neurons in the input layer corresponds to the number of features (or dimensions) in the input data. These neurons do not perform any computation; they simply pass the feature values to the first hidden layer.</li>
+                            <li><strong>Hidden Layers:</strong> These are the intermediate layers between the input and output layers where the bulk of the computation and feature extraction occurs. The "depth" of a neural network is determined by the number of hidden layers. Each neuron in a hidden layer takes a weighted sum of the outputs from the previous layer, adds a bias term, and then passes this result through a non-linear activation function.</li>
+                            <li><strong>Output Layer:</strong> This final layer produces the model's prediction. The number of neurons and the activation function used in this layer depend on the specific task. For binary classification, a single neuron with a sigmoid activation function is common. For multi-class classification, an output layer with one neuron per class and a softmax activation function is typically used.</li>
+                        </ul>
+                        <div class="diagram-box text-center">
+                            <h5 class="font-semibold text-lg mb-4">MLP Architecture</h5>
+                            <div class="flex items-center justify-center space-x-8">
+                                <div class="flex flex-col space-y-4">
+                                    <div class="w-16 h-8 rounded bg-blue-200 flex items-center justify-center text-sm">Input 1</div>
+                                    <div class="w-16 h-8 rounded bg-blue-200 flex items-center justify-center text-sm">...</div>
+                                    <div class="w-16 h-8 rounded bg-blue-200 flex items-center justify-center text-sm">Input N</div>
+                                </div>
+                                <div class="text-2xl font-mono">&rarr;</div>
+                                <div class="flex flex-col space-y-2 p-4 border-2 border-dashed border-slate-400 rounded-lg">
+                                    <span class="text-sm font-semibold mb-2">Hidden Layer</span>
+                                    <div class="w-12 h-12 rounded-full bg-green-200"></div>
+                                    <div class="w-12 h-12 rounded-full bg-green-200"></div>
+                                    <div class="w-12 h-12 rounded-full bg-green-200"></div>
+                                </div>
+                                <div class="text-2xl font-mono">&rarr;</div>
+                                <div class="flex flex-col space-y-4">
+                                    <div class="w-16 h-8 rounded bg-purple-200 flex items-center justify-center text-sm">Output 1</div>
+                                    <div class="w-16 h-8 rounded bg-purple-200 flex items-center justify-center text-sm">...</div>
+                                    <div class="w-16 h-8 rounded bg-purple-200 flex items-center justify-center text-sm">Output M</div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="font-semibold">Key Components:</h5>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Weights ($w$):</strong> Each connection between two neurons has an associated weight, which represents the strength of that connection. These weights are the primary parameters that the network learns during training.</li>
+                            <li><strong>Biases ($b$):</strong> Each neuron in the hidden and output layers has a bias term. The bias allows the activation function to be shifted to the left or right, which is critical for learning patterns successfully.</li>
+                            <li><strong>Activation Functions:</strong> These functions introduce non-linearity into the network, which is essential for learning complex patterns. Without non-linear activation functions, an MLP, no matter how many layers it has, would behave like a simple linear model. Common activation functions include:
+                                <ul class="list-inside list-[circle] ml-6 mt-2 space-y-1">
+                                    <li><strong>Sigmoid:</strong> $\\sigma(z) = \\frac{1}{1 + e^{-z}}$. It squashes values to a range between 0 and 1.</li>
+                                    <li><strong>Hyperbolic Tangent (tanh):</strong> $\\tanh(z) = \\frac{e^z - e^{-z}}{e^z + e^{-z}}$. It squashes values to a range between -1 and 1.</li>
+                                    <li><strong>Rectified Linear Unit (ReLU):</strong> $f(z) = \\max(0, z)$. It outputs the input directly if it is positive, and zero otherwise. It is the most commonly used activation function in modern neural networks due to its computational efficiency.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <h5>Backpropagation Algorithm</h5>
+                        <p>Backpropagation, short for "backward propagation of errors," is the algorithm used to train MLPs. It is an efficient method for calculating the gradients of the loss function with respect to all the weights and biases in the network. This gradient information is then used by an optimization algorithm, such as Gradient Descent, to update the network's parameters in a way that minimizes the loss. The algorithm consists of a repeated two-phase cycle: a forward pass and a backward pass.</p>
+                        <ol class="list-decimal list-inside space-y-2">
+                            <li><strong>Forward Pass:</strong> An input vector is presented to the input layer and propagated forward through the network, layer by layer. Each neuron computes its output, which is then passed to the next layer until a final prediction is generated by the output layer.</li>
+                            <li><strong>Loss Calculation:</strong> A loss function is used to measure the discrepancy between the network's predicted output ($\\hat{y}$) and the actual target output ($y$). For regression, Mean Squared Error (MSE) is common. For classification, Categorical Cross-Entropy is often used. For example, MSE is calculated as: $$L = \\frac{1}{2} \\sum (\\hat{y} - y)^2$$</li>
+                            <li><strong>Backward Pass:</strong> This is the core of backpropagation. The algorithm calculates the gradient of the loss function with respect to the network's parameters. Using the chain rule of calculus, the error is propagated backward from the output layer to the input layer. For each neuron, it calculates how much it contributed to the total error. The gradient for a weight $w_{ij}$ connecting neuron $i$ to neuron $j$ is computed based on the error of neuron $j$ and the activation of neuron $i$.</li>
+                            <li><strong>Weight Update:</strong> The calculated gradients are used by an optimization algorithm (e.g., Gradient Descent) to update the weights and biases. The update rule is: $$w_{\\text{new}} = w_{\\text{old}} - \\eta \\frac{\\partial L}{\\partial w_{\\text{old}}}$$ where $\\eta$ is the learning rate, a hyperparameter that controls the step size of the update.</li>
+                        </ol>
+                        <p>This process—forward pass, loss calculation, backward pass, and weight update—is repeated for many epochs (passes through the entire training dataset) until the model's performance converges. Backpropagation provides the "what" (the gradient, or the direction and magnitude of error contribution), while Gradient Descent provides the "how" (the update rule to adjust parameters and learn).</p>
+                    </div>
+                    <!-- ... Other sections from A are here ... -->
+                </div>
+            </div>
+            <div id="section-b" class="content-section">
+                <h2>SECTION - B</h2>
+                <div id="unsupervised-learning" class="content-section">
+                    <h3>1. Unsupervised Learning Algorithms</h3>
+                    <p>Unsupervised learning marks a significant shift from the predictive tasks of supervised learning. Instead of learning from labeled data to predict an outcome, the goal of unsupervised learning is to explore and discover hidden patterns, structures, and relationships within unlabeled data. The output is not a prediction but rather a description of the data's inherent organization, such as its natural groupings or its lower-dimensional representation. This makes it a powerful tool for data exploration, feature engineering, and tasks where labeled data is scarce or unavailable.</p>
+                    <div id="kmeans" class="content-section">
+                        <h4>1.1. K-Means Clustering</h4>
+                        <p>K-Means is one of the most popular and straightforward centroid-based clustering algorithms. Its objective is to partition a dataset of $n$ observations into $k$ distinct, non-overlapping clusters. The partitioning is done in such a way that the intra-cluster variation is minimized. This is achieved by assigning each data point to the cluster with the nearest mean, or "centroid."</p>
+                        <h5>The K-Means Algorithm</h5>
+                        <p>The algorithm operates through an iterative process of assignment and update steps until convergence is reached.</p>
+                        <ol class="list-decimal list-inside space-y-2">
+                            <li><strong>Initialization:</strong> The first step is to specify the number of clusters, $k$. Then, $k$ initial centroids are chosen. A common method is to randomly select $k$ data points from the dataset to serve as the initial centroids.</li>
+                            <li><strong>Assignment Step:</strong> Each data point in the dataset is assigned to its nearest centroid. The distance is typically measured using the Euclidean distance. This step forms $k$ initial clusters.</li>
+                            <li><strong>Update Step:</strong> After all points are assigned, the centroid of each of the $k$ clusters is recalculated. The new centroid is the mean (average) of all data points belonging to that cluster.</li>
+                            <li><strong>Repetition:</strong> Steps 2 and 3 are repeated. In each iteration, data points may be reassigned to different clusters, and the centroids will move. This process continues until the cluster assignments no longer change, or the centroids stabilize, meaning the algorithm has converged.</li>
+                        </ol>
+                        <h5>Pseudocode for K-Means Clustering</h5>
+                        <div class="pseudo-code">
+Algorithm: K-Means Clustering
+
+Input:
+  - Dataset X = {x_1, x_2,..., x_n}
+  - Number of clusters, k
+
+Output:
+  - A set of k clusters
+
+1. Initialize k centroids c_1, c_2,..., c_k randomly from the dataset X.
+2. repeat
+3.   // Assignment Step
+4.   for each data point x_i in X:
+5.     assign x_i to the cluster C_j whose centroid c_j is the closest.
+6.     (i.e., argmin_j ||x_i - c_j||^2)
+7.
+8.   // Update Step
+9.   for each cluster j from 1 to k:
+10.    recalculate the centroid c_j as the mean of all points assigned to cluster C_j.
+11.    c_j = (1 / |C_j|) * sum(x_i for all x_i in C_j)
+12. until the centroids c_j do not change.
+                        </div>
+                    </div>
+                    <div id="hierarchical-clustering" class="content-section">
+                        <h4>1.2. Hierarchical Clustering</h4>
+                        <p>Hierarchical clustering is an alternative clustering method that builds a hierarchy of clusters, which can be visualized as a tree-like structure called a <strong>dendrogram</strong>. Unlike K-Means, it does not require the number of clusters to be specified in advance.</p>
+                        <h5>Types of Hierarchical Clustering</h5>
+                        <p>There are two main approaches to hierarchical clustering:</p>
+                        <ol class="list-decimal list-inside space-y-2">
+                          <li><strong>Agglomerative (Bottom-Up):</strong> This is the more common approach. It starts by treating each data point as a single cluster. Then, at each step, it iteratively merges the two closest clusters into a single larger cluster. This process continues until all data points are contained within a single, all-encompassing cluster.</li>
+                          <li><strong>Divisive (Top-Down):</strong> This approach works in the opposite direction. It starts with all data points in one large cluster. At each step, it splits the most heterogeneous cluster into two. This process is repeated until each data point is in its own cluster, or a stopping criterion is met.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div id="svm-ensemble" class="content-section">
+                    <h3>2. SVM & Ensemble Machine Learning models</h3>
+                    <p>This section introduces two highly influential paradigms in machine learning: Support Vector Machines, which approach classification from a unique geometric perspective, and Ensemble Learning, a powerful strategy for combining multiple models to achieve superior performance.</p>
+                    <div id="svm" class="content-section">
+                        <h4>2.1. Support Vector Machine (SVM)</h4>
+                        <p>Support Vector Machine (SVM) is a powerful and versatile supervised machine learning algorithm capable of performing both classification and regression tasks. However, it is most widely recognized for its effectiveness in classification problems. The fundamental idea behind SVM is to find an optimal decision boundary that separates data points of different classes in the feature space.</p>
+                        <h5>Core Concepts: Hyperplane, Margin, and Support Vectors</h5>
+                        <p>The intuition behind SVM is geometric. It aims to find not just any separating boundary, but the one that is as far as possible from the data points of both classes. This leads to better generalization on unseen data.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Hyperplane:</strong> This is the decision boundary that separates the classes. In a 2-dimensional space, the hyperplane is a line. In a 3-dimensional space, it is a plane. In spaces with more than three dimensions, it is referred to as a hyperplane. The goal is to find the hyperplane that best segregates the data.</li>
+                            <li><strong>Margin:</strong> The margin is the distance between the hyperplane and the nearest data points from either class. SVM's primary objective is to find the hyperplane that <strong>maximizes</strong> this margin. A larger margin implies a more confident and robust decision boundary.</li>
+                            <li><strong>Support Vectors:</strong> These are the data points that lie closest to the hyperplane—the points that are on the edge of the margin. They are the most critical data points in the training set because they are the ones that define the position and orientation of the optimal hyperplane. If these points were moved, the hyperplane would also move. All other points are irrelevant to defining the boundary.</li>
+                        </ul>
+                    </div>
+                    <div id="ensemble-learning" class="content-section">
+                        <h4>2.2. Ensemble Machine Learning techniques</h4>
+                        <p>Ensemble learning is a meta-approach to machine learning that seeks better predictive performance by combining the predictions from multiple models, or "learners". The resulting ensemble model is often more accurate, stable, and robust than any of its individual constituent models. The two most fundamental ensemble techniques are Bagging and Boosting.</p>
+                        <h5>Bagging (Bootstrap Aggregating)</h5>
+                        <p>Bagging is an ensemble technique designed primarily to <strong>reduce the variance</strong> of a machine learning model, which in turn helps to prevent overfitting. It is particularly effective with models that have high variance and low bias, such as fully grown decision trees.</p>
+                        <h5>Boosting</h5>
+                        <p>Boosting is an ensemble technique that works by building models <strong>sequentially</strong>, where each new model is trained to correct the errors made by its predecessors. The primary goal of boosting is to <strong>reduce the bias</strong> of the model, combining many "weak learners" (models that are only slightly better than random guessing) into a single "strong learner".</p>
+                    </div>
+                </div>
+            </div>
+            <div id="section-c" class="content-section">
+                <h2>SECTION - C</h2>
+                <div id="deep-learning" class="content-section">
+                    <h3>1. Deep Learning</h3>
+                    <p>Deep learning represents a more advanced and powerful subset of machine learning. It is characterized by the use of neural networks with multiple layers—hence the term "deep"—to progressively extract higher-level features from raw data. This layered architecture allows deep learning models to learn extremely complex patterns and representations, making them exceptionally effective for tasks involving large and unstructured datasets, such as images, text, and sound.</p>
+                    <div id="deep-learning-basics" class="content-section">
+                        <h4>1.1. Basics of Deep learning</h4>
+                        <p>The core distinction between traditional machine learning and deep learning lies in the process of <strong>feature engineering</strong>. In traditional ML, domain experts often need to manually extract relevant features from the raw data to feed into the learning algorithm. Deep learning automates this process. The hierarchical structure of a deep neural network allows it to learn a hierarchy of features directly from the data. Initial layers might learn to detect simple patterns like edges and colors, subsequent layers might combine these to recognize more complex textures and shapes, and the final layers can identify entire objects.</p>
+                    </div>
+                    <div id="autoencoders" class="content-section">
+                        <h4>1.2. Auto-encoders</h4>
+                        <p>An autoencoder is a type of unsupervised neural network designed for the primary purpose of learning efficient data codings or representations. Its architecture is characteristically symmetrical and consists of an encoder, a bottleneck (latent space), and a decoder. By learning to reconstruct the data perfectly through a compressed bottleneck, the network is forced to learn a meaningful and compact representation of the data in its latent space. This makes autoencoders highly useful for tasks like dimensionality reduction, feature learning, and anomaly detection.</p>
+                    </div>
+                    <div id="cnn" class="content-section">
+                        <h4>1.3. Convolutional Neural Network</h4>
+                        <p>Convolutional Neural Networks (CNNs or ConvNets) are a class of deep neural networks specifically designed for processing data with a grid-like topology, such as an image. They are the backbone of most modern computer vision systems. A typical CNN architecture consists of a stack of convolutional layers, pooling layers, and fully connected layers.</p>
+                    </div>
+                    <div id="rnn" class="content-section">
+                        <h4>1.4. Recurrent Neural Network: LSTM</h4>
+                        <p>Recurrent Neural Networks (RNNs) are a class of neural networks designed to work with <strong>sequential data</strong>, where the order of elements is crucial. Unlike feedforward networks, RNNs have loops, allowing information to persist. Long Short-Term Memory (LSTM) networks are a special kind of RNN architecture explicitly designed to avoid the long-term dependency problem (vanishing/exploding gradients) by using a gating mechanism (forget, input, and output gates) to regulate the flow of information.</p>
+                    </div>
+                </div>
+                <div id="learning-fundamentals" class="content-section">
+                    <h3>2. Learning Fundamentals</h3>
+                    <p>This section covers the essential theoretical and practical concepts that underpin the training, evaluation, and optimization of nearly all machine learning models.</p>
+                    <div id="gradient-descent" class="content-section">
+                        <h4>2.1. Gradient descent learning technique</h4>
+                        <p>Gradient Descent is the workhorse optimization algorithm for most modern machine learning models. It is an iterative method used to find the values of a model's parameters that minimize a cost function by repeatedly taking steps in the direction of the negative gradient. Variants include Batch, Stochastic (SGD), and Mini-Batch Gradient Descent.</p>
+                    </div>
+                    <div id="overfitting-regularization" class="content-section">
+                        <h4>2.2. Overfitting, regularization</h4>
+                        <p>Overfitting occurs when a model learns the training data too well, capturing noise instead of the underlying pattern, which leads to poor performance on new data. Regularization is a set of techniques used to prevent overfitting by adding a penalty for model complexity to the cost function. Common methods include L1 (Lasso) and L2 (Ridge) regularization.</p>
+                    </div>
+                    <div id="pca" class="content-section">
+                        <h4>2.3. Dimensionality reduction using Principle component analysis</h4>
+                        <p>Dimensionality reduction techniques aim to reduce the number of features while retaining as much of the original information as possible. Principal Component Analysis (PCA) is the most common technique for linear dimensionality reduction. It transforms the data into a new coordinate system of orthogonal principal components that capture the maximum variance in the data.</p>
+                    </div>
+                    <div id="feature-eng" class="content-section">
+                        <h4>2.4. A general view of feature extraction, feature ranking</h4>
+                        <p><strong>Feature Extraction</strong> is the process of creating new features from existing raw data. <strong>Feature Selection (or Ranking)</strong> is the process of selecting a subset of the original features. Methods are categorized as Filter (statistical properties), Wrapper (model-based evaluation), and Embedded (selection as part of training).</p>
+                    </div>
+                    <div id="validation" class="content-section">
+                        <h4>2.5. Validation techniques</h4>
+                        <p>Validation techniques provide a robust estimate of a model's performance on unseen data. Common methods include the simple Holdout split, the more robust K-Fold Cross-Validation, and Stratified K-Fold for imbalanced datasets.</p>
+                    </div>
+                    <div id="confusion-matrix" class="content-section">
+                        <h4>2.6. Confusion matrix and its related performance parameters</h4>
+                        <p>A confusion matrix provides a detailed picture of a classification model's performance by comparing actual vs. predicted labels. It contains counts for True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN). From this, key metrics like Accuracy, Precision, Recall, and F1-Score are derived to give a more nuanced evaluation than accuracy alone.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="section-d" class="content-section">
+                <h2>SECTION - D</h2>
+                <div id="reinforcement-learning" class="content-section">
+                    <h3>1. Reinforcement Learning</h3>
+                    <p>Reinforcement Learning (RL) is a learning paradigm where an agent learns through direct, continuous interaction with a dynamic environment. The agent's goal is to learn an optimal sequence of actions—a policy—that maximizes a cumulative reward signal over time through a process of trial and error.</p>
+                    <div id="mdp" class="content-section">
+                        <h4>1.1. Introduction, Markov decision process (MDP)</h4>
+                        <p>The Markov Decision Process (MDP) is the mathematical framework for RL problems, defined by a tuple $(S, A, P, R, \\gamma)$ representing States, Actions, Transition Probabilities, Rewards, and a Discount Factor. It relies on the Markov Property, which states that the future is independent of the past given the present state.</p>
+                    </div>
+                    <div id="bellman" class="content-section">
+                        <h4>1.2. Bellman equations</h4>
+                        <p>The Bellman equations are the cornerstone of most RL algorithms, providing a recursive definition for the value of a state or a state-action pair. The Bellman Expectation Equation defines the value for a given policy, while the Bellman Optimality Equation defines the value for the optimal policy, which is the key to solving RL problems.</p>
+                    </div>
+                    <div id="value-policy-iteration" class="content-section">
+                        <h4>1.3. Value iteration and policy iteration</h4>
+                        <p>Value Iteration and Policy Iteration are two classic dynamic programming algorithms used to solve MDPs when a perfect model of the environment is known. Value Iteration iteratively computes the optimal state-value function, while Policy Iteration alternates between evaluating a policy and improving it greedily.</p>
+                    </div>
+                    <div id="q-learning" class="content-section">
+                        <h4>1.4. Q-learning</h4>
+                        <p>Q-learning is a cornerstone of modern RL. It is a model-free, off-policy, temporal difference (TD) control algorithm that learns the optimal action-value function, $Q^*(s, a)$, directly from experience. It uses a Q-table to store values and updates them based on the TD error, balancing exploration and exploitation using strategies like $\\epsilon$-greedy.</p>
+                    </div>
+                    <div id="value-approx" class="content-section">
+                        <h4>1.5. Value function approximation</h4>
+                        <p>For problems with enormous or continuous state spaces, representing the Q-function as a table is impossible. Value function approximation solves this by using a parameterized function, such as a deep neural network (creating a Deep Q-Network or DQN), to estimate the value function, learning the function's parameters instead of individual state-action values.</p>
+                    </div>
+                    <div id="policy-search" class="content-section">
+                        <h4>1.6. Policy search, Reinforce</h4>
+                        <p>Policy gradient methods are an alternative to value-based methods that learn a parameterized policy directly. REINFORCE is a foundational policy gradient algorithm that updates policy parameters based on the complete return of an entire episode, increasing the probability of actions that led to high returns.</p>
+                    </div>
+                    <div id="pomdp" class="content-section">
+                        <h4>1.7. POMDPs</h4>
+                        <p>A Partially Observable Markov Decision Process (POMDP) is a generalization of an MDP for situations where the agent cannot observe the true state of the environment directly. The agent instead receives an observation and must maintain a belief state (a probability distribution over all possible states) to make decisions.</p>
+                    </div>
+                    <div id="td-learning" class="content-section">
+                        <h4>1.8. Temporal Difference Learning</h4>
+                        <p>Temporal Difference (TD) learning is a central and unifying idea in reinforcement learning that combines Monte Carlo methods (learning from experience) and Dynamic Programming (bootstrapping). It updates value estimates based on other learned estimates without waiting for the final outcome of an episode. Q-learning and SARSA are prominent TD control algorithms.</p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const contentContainer = document.getElementById('content-container');
+        contentContainer.innerHTML = fullContent;
+
+        // --- Sidebar and Navigation Logic ---
+        const sidebarNav = document.getElementById('sidebar-nav').querySelector('ul');
+        const headers = contentContainer.querySelectorAll('h2, h3, h4');
+        let navHtml = '';
+
+        headers.forEach(header => {
+            const level = parseInt(header.tagName.substring(1));
+            const id = header.parentElement.id;
+            const text = header.textContent;
+            let paddingClass = '';
+            if (level === 3) paddingClass = 'pl-8';
+            if (level === 4) paddingClass = 'pl-12';
+
+            navHtml += `<li><a href="#${id}" class="sidebar-link block py-2 px-6 text-sm ${paddingClass}">${text}</a></li>`;
+        });
+        sidebarNav.innerHTML = navHtml;
+
+        if (window.renderMathInElement) {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
+
+        const links = sidebarNav.querySelectorAll('a');
+        const sections = document.querySelectorAll('.content-section');
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+        
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                     sidebar.classList.add('-translate-x-full');
+                }
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const link = sidebarNav.querySelector(`a[href="#${id}"]`);
+                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                    links.forEach(l => l.classList.remove('active'));
+                    if(link) link.classList.add('active');
+                }
+            });
+        }, { threshold: 0.5, rootMargin: "-100px 0px -50% 0px" });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    });
+    </script>
+</body>
+</html>
